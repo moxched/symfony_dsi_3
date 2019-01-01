@@ -1,0 +1,52 @@
+{% extends 'baseAdmin.html.twig' %}
+{% block body %}
+    <div class="card-body">
+        <h3>commande n° {{ client.id }} de la part de {{ client.nom }} {{ client.prenom }} </h3>
+        <h4>son email est {{ client.email }}</h4>
+        <h4>son adresse est {{ client.adresse }}</h4>
+        <h5> cette commande à ete effectue le {{ client.date|date }}</h5>
+        <h2> son montant est {{ client.total }}</h2>
+
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table">
+                <thead class=" text-primary">
+                <th>
+                    produit
+                </th>
+                <th>
+                    quantité
+                </th>
+                <th>
+                    prix
+                </th>
+                <th>
+                    montant total
+                </th>
+                </thead>
+                <tbody>
+                {% for pc in commande %}
+                <tr>
+                    <td>
+                        {{ pc.produit.libelle }}
+                    </td>
+                    <td>
+                        {{ pc.qte }}
+                    </td>
+                    <td>
+                        {{ pc.prix }}
+                    </td>
+                    <td>
+                        {{ (pc.prix * pc.qte) }}
+                    </td>
+                </tr>
+                {% endfor %}
+
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+{% endblock %}

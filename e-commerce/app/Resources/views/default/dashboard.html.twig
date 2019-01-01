@@ -1,0 +1,62 @@
+{% extends 'baseAdmin.html.twig' %}
+{% block body %}
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                <th>
+                                    Module
+                                </th>
+                                <th>
+                                    Nombre
+                                </th>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        le nombre total des produits
+                                    </td>
+                                    <td>
+                                        {{ prod }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Le nombre total des catégories
+                                    </td>
+                                    <td>
+                                        {{ cat }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Le nombre total des commandes
+                                    </td>
+                                    <td>
+                                        {{ com }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Le montant total des commandes
+                                    </td>
+                                    <td>
+                                        {{ tot }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Le nombre total des avis client
+                                    </td>
+                                    <td>
+                                        {{ avis }}
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+{% endblock %}

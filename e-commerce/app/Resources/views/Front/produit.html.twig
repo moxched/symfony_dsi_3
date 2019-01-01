@@ -1,0 +1,254 @@
+{% extends 'front.html.twig' %}
+{% block stylesheets %}
+    <title>Product</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Sublime project">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/styles/bootstrap4/bootstrap.min.css">
+    <link href="/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
+    <link rel="stylesheet" type="text/css" href="/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
+    <link rel="stylesheet" type="text/css" href="/plugins/OwlCarousel2-2.2.1/animate.css">
+    <link rel="stylesheet" type="text/css" href="/styles/product.css">
+    <link rel="stylesheet" type="text/css" href="/styles/product_responsive.css">
+{% endblock %}
+{% block body %}
+
+    <div class="home">
+        <div class="home_container">
+
+        </div>
+    </div>
+
+    <!-- Product Details -->
+
+    <div class="product_details">
+        <div class="container">
+            <div class="row details_row">
+
+                <!-- Product Image -->
+                <div class="col-lg-6">
+                    <div class="details_image">
+                        <div class="details_image_large"><img src="/uploads/prod_img/{{ prod.imagePrinc }}" alt=""><div class="product_extra product_new"></div></div>
+                        <div class="details_image_thumbnails d-flex flex-row align-items-start justify-content-between">
+                            <div class="details_image_thumbnail active" data-image="/uploads/prod_img/{{ prod.imagePrinc}}"><img src="/uploads/prod_img/{{ prod.imagePrinc }}" alt=""></div>
+                            <div class="details_image_thumbnail" data-image="/uploads/prod_img/{{ prod.image1 }}"><img src="/uploads/prod_img/{{ prod.image1 }}" alt=""></div>
+                            <div class="details_image_thumbnail" data-image="/uploads/prod_img/{{ prod.image2 }}"><img src="/uploads/prod_img/{{ prod.image2 }}" alt=""></div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Product Content -->
+                <div class="col-lg-6">
+                    <div class="details_content">
+                        <div class="details_name">{{ prod.libelle }}</div>
+                        <div class="details_price">${{ prod.prix }}</div>
+
+                        <!-- In Stock -->
+                        {% if (prod.inStock ==1) %}
+                        <div class="in_stock_container">
+                            <div class="availability">Availability:</div>
+                            <span>In Stock</span>
+                        </div>
+                        {% else %}
+                            <div class="in_stock_container">
+                                <div class="availability">Availability:</div>
+                                <span>out of stock</span>
+                            </div>
+                        {% endif %}
+                        <div class="details_text">
+                            <p>{{ prod.DescLong|raw }}</p>
+                        </div>
+
+                        <!-- Product Quantity -->
+                        <div class="product_quantity_container">
+                            <form method="post" action="{{ path('Cart') }}">
+                            <div class="product_quantity clearfix">
+
+                                <span>Qty</span>
+                                <input id="quantity_input" name="qte" type="text" pattern="[0-9]*" value="1">
+
+                                <div class="quantity_buttons">
+                                    <div id="quantity_inc_button" class="quantity_inc quantity_control"><i class="fa fa-chevron-up" aria-hidden="true"></i></div>
+                                    <div id="quantity_dec_button" class="quantity_dec quantity_control"><i class="fa fa-chevron-down" aria-hidden="true"></i></div>
+                                </div>
+                                <input type="hidden" name="id" value="{{ prod.id }}">
+                                <input type="hidden" name="action" value="add">
+
+                            </div>
+                               <input type="submit" value="Add to cart" class="button cart_button">
+
+                            </form>
+                        </div>
+
+
+                        <!-- Share -->
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row description_row">
+                <div class="col">
+                    <ul class="nav nav-tabs description_title_container" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active description_title" id="home-tab" data-toggle="tab" href="#desc" role="tab" aria-controls="home" aria-selected="true">Description</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link description_title" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="profile" aria-selected="false">Reviews <span>({{ avis|length }})</span></a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="desc" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="description_text">
+                                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Phasellus id nisi quis justo tempus mollis sed et dui. In hac habitasse platea dictumst. Suspendisse ultrices mauris diam. Nullam sed aliquet elit. Mauris consequat nisi ut mauris efficitur lacinia.</p>
+                            </div>
+                         </div>
+                        <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
+                            {% if (avis|length ==0) %}
+                            <p>there are no reviews for this product</p>
+                            {% else %}
+                                {% for a in avis %}
+                                    <div class="col-md-10 col-sm-10">
+                                        <div class="panel panel-default arrow left">
+                                            <div class="panel-body">
+                                                <header class="text-left">
+                                                    <div class="row">
+                                                    <div class="comment-user col-sm-9"> <h4><i class="fa fa-user"></i>{{ a.prop }}</h4></div>
+                                                    <div class="col-sm-3">
+                                                    <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> {{ a.date|date("F jS \\a\\t g:ia") }}</time>
+                                                    </div>
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-9"></div>
+                                                        <div class="col-sm-3 rating">{% for b in 0..a.rate %}<span class="icon">★</span>{% endfor %}</div>
+                                                    </div>
+                                                </header>
+                                                        <div class="comment-post">
+                                                            <p>
+                                                            {{ a.avis }}
+                                                            </p>
+                                                        </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                            <form action="{{ path('comment') }}" method="post">
+                                <div class="rating">
+                                <label>
+                                    <input type="radio" name="stars" value="0" checked />
+                                </label>
+                                <label>
+                                    <input type="radio" name="stars" value="1" />
+                                    <span class="icon">★</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="stars" value="2" />
+                                    <span class="icon">★</span>
+                                    <span class="icon">★</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="stars" value="3" />
+                                    <span class="icon">★</span>
+                                    <span class="icon">★</span>
+                                    <span class="icon">★</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="stars" value="4" />
+                                    <span class="icon">★</span>
+                                    <span class="icon">★</span>
+                                    <span class="icon">★</span>
+                                    <span class="icon">★</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="stars" value="5" />
+                                    <span class="icon">★</span>
+                                    <span class="icon">★</span>
+                                    <span class="icon">★</span>
+                                    <span class="icon">★</span>
+                                    <span class="icon">★</span>
+                                </label>
+                                </div>
+
+                                    <div class="form-group">
+                                        <label for="email" class="col-sm-3">Your name</label><br>
+                                        <div class="col-sm-3">
+                                        <input type="text" name="prop" class="form-control">
+                                        </div>
+                                        <label for="email" class="col-sm-3">Your comment</label><br>
+                                        <div class="col-sm-7">
+                                            <textarea class="form-control" name="Comment" id="addComment" rows="2"></textarea>
+                                        </div>
+                                      </div>
+                                        <input type="hidden" name="id" value="{{ prod.id }}">
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <button class="btn btn-success btn-circle text-uppercase" type="submit" id="submitComment"><span class="glyphicon glyphicon-send"></span> Summit comment</button>
+                                        </div>
+                                    </div>
+                            </form>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Products -->
+
+    <div class="products">
+        <div class="container">
+            <div class="row">
+                <div class="col text-center">
+                    <div class="products_title">Related Products</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+
+                    <div class="product_grid">
+                        {% for i in 0..3 %}
+                            {% set p =random(3) %}
+
+                        <!-- Product -->
+                        <div class="product">
+                            <div class="product_image"><img src="/uploads/prod_img/{{ prods[p].imagePrinc }}" alt=""></div>
+                            <div class="product_extra product_new"><a href="categories.html">New</a></div>
+                            <div class="product_content">
+                                <div class="product_title"><a href="product.html">{{ prods[p].libelle }}Smart Phone</a></div>
+                                <div class="product_price">${{ prods[p].prix }}</div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <!-- Product -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+{% block icon %}
+{% endblock %}
+{% block javascripts %}
+<script src="/js/jquery-3.2.1.min.js"></script>
+    <script src="/styles/bootstrap4/popper.js"></script>
+    <script src="/styles/bootstrap4/bootstrap.min.js"></script>
+    <script src="/plugins/greensock/TweenMax.min.js"></script>
+    <script src="/plugins/greensock/TimelineMax.min.js"></script>
+    <script src="/plugins/scrollmagic/ScrollMagic.min.js"></script>
+    <script src="/plugins/greensock/animation.gsap.min.js"></script>
+    <script src="/plugins/greensock/ScrollToPlugin.min.js"></script>
+    <script src="/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+    <script src="/plugins/Isotope/isotope.pkgd.min.js"></script>
+    <script src="/plugins/easing/easing.js"></script>
+    <script src="/plugins/parallax-js-master/parallax.min.js"></script>
+    <script src="/js/product.js"></script>
+{% endblock %}

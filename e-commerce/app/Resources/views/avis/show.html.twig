@@ -1,0 +1,45 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block body %}
+    <h1>Avi</h1>
+
+<div class="table-responsive">
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ avi.id }}</td>
+            </tr>
+            <tr>
+                <th>Avis</th>
+                <td>{{ avi.avis }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{% if avi.date %}{{ avi.date|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Rate</th>
+                <td>{{ avi.rate }}</td>
+            </tr>
+            <tr>
+                <th>Prop</th>
+                <td>{{ avi.prop }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('avis_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('avis_edit', { 'id': avi.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

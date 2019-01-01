@@ -1,0 +1,39 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block body %}
+    <h1>Avis list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Avis</th>
+                <th>Date</th>
+                <th>Rate</th>
+                <th>Prop</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for avi in avis %}
+            <tr>
+                <td><a href="{{ path('avis_show', { 'id': avi.id }) }}">{{ avi.id }}</a></td>
+                <td>{{ avi.avis }}</td>
+                <td>{% if avi.date %}{{ avi.date|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ avi.rate }}</td>
+                <td>{{ avi.prop }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('avis_show', { 'id': avi.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('avis_edit', { 'id': avi.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

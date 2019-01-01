@@ -1,0 +1,67 @@
+{% extends 'baseAdmin.html.twig' %}
+{% block body %}
+
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                <th>
+                                    id
+                                </th>
+                                <th>
+                                    nom
+                                </th>
+                                <th>
+                                    prenom
+                                </th>
+                                <th>
+                                    email
+                                </th>
+                                <th>
+                                    adresse
+                                </th>
+                                <th>
+                                    date
+                                </th>
+                                <th>
+                                    montant
+                                </th>
+                                <th>
+                                    action
+                                </th>
+                                </thead>
+                                <tbody>
+                                {% for c in client %}
+                                <tr>
+                                    <td>
+                                        {{ c.id }}
+                                    </td>
+                                    <td>
+                                        {{ c.nom }}
+                                    </td>
+                                    <td>
+                                        {{ c.prenom }}
+                                    </td>
+                                    <td>
+                                        {{ c.email }}
+                                    </td>
+                                    <td>
+                                        {{ c.adresse }}
+                                    </td>
+                                    <td>
+                                        {{ c.date|date }}
+                                    </td>
+                                    <td>
+                                        {{ c.total }}
+                                    </td>
+                                    <td>
+                                        <a href="{{ path('commande',{'id':c.id}) }}">Voir</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+
+
+                                </tbody>
+                            </table>
+                        </div>
+
+{% endblock %}
